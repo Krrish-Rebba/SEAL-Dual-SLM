@@ -1,0 +1,16 @@
+# Ignore Model Weights and Checkpoints
+student_full_ft_*/
+student_lora_continuous/
+checkpoint-*/
+
+# Ignore Python Cache
+__pycache__/
+*.pyc
+
+# Virtual Environments (if any)
+venv/
+.env/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
