@@ -6,39 +6,6 @@ This project implements an applied "Self-Adapting Learning-Based AI" using an as
 - `main.py`: The core pipeline executing the 4 constraints sequentially.
 - `requirements.txt`: Required dependencies.
 
-## Architecture Diagram
-
-```mermaid
-graph TD
-    %% Styling
-    classDef default fill:#FFF,stroke:#000,stroke-width:2px,color:#000;
-    classDef component fill:#fff,stroke:#000,stroke-width:2px,color:#000;
-    classDef storage fill:#fff,stroke:#000,stroke-width:2px,shape:cylinder,color:#000;
-
-    %% Disk Entities
-    RawData[("Disk: Task Prompts")]:::storage
-    Weights[("Disk: Updated LoRA<br/>Adapter Weights")]:::storage
-    Evaluator[("Disk: Evaluation Logs")]:::storage
-
-    %% GPU Subgraph
-    subgraph GPU ["Target Hardware Environment: 4GB VRAM GPU (Sequential Loading)"]
-        direction TB
-        Teacher["Phase 1: Teacher Model<br/>(SmolLM2-360M, 4-bit)"]:::component
-        Governance["Phase 2: Algorithmic Governance<br/>(HES Filter & Decoupler)"]:::component
-        Student["Phase 3: Student Learner<br/>(SmolLM2-135M Base + LoRA r=8)"]:::component
-        
-        %% VRAM Purge indicator
-        Teacher -.-|"VRAM Purge & gc.collect()"| Student
-    end
-
-    %% Flow Connections
-    RawData --> Teacher
-    Teacher -- "Raw Synthetic Responses" --> Governance
-    Governance -- "Curated Training Set" --> Student
-    
-    Student -- "Save Checkpoint" --> Weights
-    Student -- "Validation Pass" --> Evaluator
-```
 
 ## Key Features & Constraints Honored
 1. **Hardware Constraints:** Designed specifically to fit within a 4GB VRAM environment (RTX 3050). The pipeline aggressively unloads models, performs garbage collection, and clears CUDA cache between phases so that Teacher and Student never coexist in VRAM.
