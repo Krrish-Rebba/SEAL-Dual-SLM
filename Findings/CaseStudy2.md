@@ -57,6 +57,15 @@ The Student model was trained via LoRA (`r=8`) exclusively on the datasets that 
 - **Algebra Perplexity:** `67.45`
 - **Loss:** `4.21`
 
+
+## Executed Input Prompts
+During the physical execution of this case study via `main.py`, the following 5 unstructured prompts were ingested by the Teacher model:
+1. "Explain the theory of relativity in simple terms."
+2. "How do you bake a chocolate cake?"
+3. "Write a python script to reverse a string."
+4. "What is the capital of France and why is it famous?"
+5. "Describe the process of photosynthesis."
+
 ## Conclusion
 The baseline has been successfully established at a perplexity of **67.45**. Any significant increase from this number in the upcoming multi-domain case studies will mathematically quantify the onset of **Catastrophic Forgetting**. The Governance layer works highly effectively for filtering raw noise, though Case Study 2 revealed it remains vulnerable to adversarial repetition loops.
 

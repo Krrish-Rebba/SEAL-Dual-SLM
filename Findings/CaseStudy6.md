@@ -47,6 +47,15 @@ The Teacher successfully hallucinated complex, highly entropic proofs for all th
 
 **Forgetting Measure (FM from Baseline):** `-26.94` 
 
+
+## Executed Input Prompts
+During the physical execution of this case study via `main.py`, the following 5 unstructured prompts were ingested by the Teacher model:
+1. "Explain the theory of relativity in simple terms."
+2. "How do you bake a chocolate cake?"
+3. "Write a python script to reverse a string."
+4. "What is the capital of France and why is it famous?"
+5. "Describe the process of photosynthesis."
+
 ## Conclusion & Discovery
 The model is **virtually indestructible** in this pipeline. Despite being forced to learn mathematically contradictory logic, its basic Algebra perplexity fell to an astonishing **40.51**.
 

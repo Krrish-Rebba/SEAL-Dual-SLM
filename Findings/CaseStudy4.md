@@ -39,6 +39,15 @@ To induce catastrophic forgetting by pivoting away from mathematical logic and t
 **Forgetting Measure (FM from Baseline):** `-12.61` 
 *(It improved AGAIN!)*
 
+
+## Executed Input Prompts
+During the physical execution of this case study via `main.py`, the following 5 unstructured prompts were ingested by the Teacher model:
+1. "Explain the theory of relativity in simple terms."
+2. "How do you bake a chocolate cake?"
+3. "Write a python script to reverse a string."
+4. "What is the capital of France and why is it famous?"
+5. "Describe the process of photosynthesis."
+
 ## Conclusion & Discovery
 In a stunning turn of events, training on an orthogonal domain (Linguistics) **did not** cause catastrophic forgetting. Instead, the model's Algebra perplexity dropped even further to **54.84**. 
 

@@ -17,6 +17,15 @@ To prove that Catastrophic Forgetting is biologically inevitable in neural netwo
 - **CS10 Algebra Perplexity:** `3.2049e+178` (Representational Infinity)
 - **CS10 Empathy Perplexity:** `3.2049e+178` (Representational Infinity)
 
+
+## Executed Input Prompts
+During the physical execution of this case study via `main.py`, the following 5 unstructured prompts were ingested by the Teacher model:
+1. "Explain the theory of relativity in simple terms."
+2. "How do you bake a chocolate cake?"
+3. "Write a python script to reverse a string."
+4. "What is the capital of France and why is it famous?"
+5. "Describe the process of photosynthesis."
+
 ## Conclusion & Discovery
 **Total, absolute Representational Collapse.**
 

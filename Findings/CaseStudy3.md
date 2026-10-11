@@ -44,6 +44,15 @@ The Student model was continually trained on the new Calculus data using the exi
 
 **Forgetting Measure (FM):** `-7.38` (A negative FM indicates an *improvement* in performance).
 
+
+## Executed Input Prompts
+During the physical execution of this case study via `main.py`, the following 5 unstructured prompts were ingested by the Teacher model:
+1. "Explain the theory of relativity in simple terms."
+2. "How do you bake a chocolate cake?"
+3. "Write a python script to reverse a string."
+4. "What is the capital of France and why is it famous?"
+5. "Describe the process of photosynthesis."
+
 ## Conclusion
 Our hypothesis was spectacularly confirmed! The model did **not** experience catastrophic forgetting. Instead, it experienced **Positive Transfer**. By training on advanced but logically adjacent domains like Calculus and Geometry, the model actually reinforced its underlying mathematical representations, improving its perplexity on basic Algebra from `67.45` down to `60.07`. 
 

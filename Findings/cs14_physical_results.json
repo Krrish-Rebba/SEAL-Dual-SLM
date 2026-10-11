@@ -1,0 +1,51 @@
+{
+  "Base model": {
+    "training": "None (0 steps)",
+    "start_loss": "N/A",
+    "final_loss": "N/A",
+    "eval_loss": 4.381,
+    "token_acc": 36.19,
+    "ppl": 79.91,
+    "qa_accuracy": 16.77
+  },
+  "Train on Passage": {
+    "training": "Passage Only (15 steps LoRA)",
+    "start_loss": 3.0312,
+    "final_loss": 2.8125,
+    "steps": 15,
+    "eval_loss": 4.3381,
+    "token_acc": 36.19,
+    "ppl": 76.56,
+    "qa_accuracy": 16.77
+  },
+  "Train on Passage + Synthetic": {
+    "training": "Passage + Self-Synthetic (15 steps LoRA)",
+    "start_loss": 4.875,
+    "final_loss": 3.0156,
+    "steps": 15,
+    "eval_loss": 4.3667,
+    "token_acc": 35.24,
+    "ppl": 78.78,
+    "qa_accuracy": 16.77
+  },
+  "Train on Passage + Gemini 3.1 Pro Synthetic": {
+    "training": "Passage + Gemini Synthetic (15 steps LoRA)",
+    "start_loss": 4.125,
+    "final_loss": 4.75,
+    "steps": 15,
+    "eval_loss": 4.3333,
+    "token_acc": 35.24,
+    "ppl": 76.2,
+    "qa_accuracy": 16.77
+  },
+  "SEAL": {
+    "training": "Passage + SEAL Adaptive (15 steps LoRA)",
+    "start_loss": 3.0312,
+    "final_loss": 5.1562,
+    "steps": 15,
+    "eval_loss": 4.3571,
+    "token_acc": 36.19,
+    "ppl": 78.03,
+    "qa_accuracy": 16.77
+  }
+}

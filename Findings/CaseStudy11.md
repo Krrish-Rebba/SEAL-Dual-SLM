@@ -15,6 +15,15 @@ To test the structural limits of the LoRA projection matrix itself. While Case S
 - **CS11 Algebra Perplexity:** `12.14` (Slight shift from 10.39)
 - **CS11 Empathy Perplexity:** `17.94` (Slight shift from 16.60)
 
+
+## Executed Input Prompts
+During the physical execution of this case study via `main.py`, the following 5 unstructured prompts were ingested by the Teacher model:
+1. "Explain the theory of relativity in simple terms."
+2. "How do you bake a chocolate cake?"
+3. "Write a python script to reverse a string."
+4. "What is the capital of France and why is it famous?"
+5. "Describe the process of photosynthesis."
+
 ## Conclusion & Discovery
 **The LoRA Adapter is highly resilient to saturation.**
 

@@ -21,6 +21,15 @@ To actively induce Catastrophic Forgetting by launching a targeted adversarial a
 - **CS9 Algebra Perplexity:** `10.39` (Decreased from 11.46)
 - **CS9 Empathy Perplexity:** `16.60` (Decreased from 18.51)
 
+
+## Executed Input Prompts
+During the physical execution of this case study via `main.py`, the following 5 unstructured prompts were ingested by the Teacher model:
+1. "Explain the theory of relativity in simple terms."
+2. "How do you bake a chocolate cake?"
+3. "Write a python script to reverse a string."
+4. "What is the capital of France and why is it famous?"
+5. "Describe the process of photosynthesis."
+
 ## Conclusion & Discovery
 **The model is mathematically immune to Catastrophic Forgetting.**
 

@@ -23,6 +23,15 @@ To explore the limits of the "Rule-Following Engine" hypothesis derived from Cas
 - **CS8 Algebra Perplexity:** `11.46` (Decreased from 14.92)
 - **CS8 Empathy Perplexity:** `18.51` 
 
+
+## Executed Input Prompts
+During the physical execution of this case study via `main.py`, the following 5 unstructured prompts were ingested by the Teacher model:
+1. "Explain the theory of relativity in simple terms."
+2. "How do you bake a chocolate cake?"
+3. "Write a python script to reverse a string."
+4. "What is the capital of France and why is it famous?"
+5. "Describe the process of photosynthesis."
+
 ## Conclusion & Discovery
 **The model retains emotional coherence.**
 

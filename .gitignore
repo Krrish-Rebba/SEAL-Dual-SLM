@@ -17,3 +17,11 @@ Thumbs.db
 
 # Ignored Document Files
 ResearchPaper_F1_Revised.docx
+~$*
+
+# Utility & Extraction Scripts
+build_multisheet_data_workbook.py
+create_docx.py
+extract_cs_data.py
+inject_prompts.py
+

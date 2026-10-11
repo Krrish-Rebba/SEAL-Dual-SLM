@@ -41,6 +41,15 @@ To induce catastrophic forgetting by completely overwhelming the model's 135M pa
 
 **Forgetting Measure (FM from Baseline):** `-18.16` 
 
+
+## Executed Input Prompts
+During the physical execution of this case study via `main.py`, the following 5 unstructured prompts were ingested by the Teacher model:
+1. "Explain the theory of relativity in simple terms."
+2. "How do you bake a chocolate cake?"
+3. "Write a python script to reverse a string."
+4. "What is the capital of France and why is it famous?"
+5. "Describe the process of photosynthesis."
+
 ## Conclusion & Discovery
 The model **refuses to break**. In an incredibly surprising turn of events, flooding the model with pure historical and geographical facts *further decreased* its Algebra perplexity to an all-time low of **49.29**.
 

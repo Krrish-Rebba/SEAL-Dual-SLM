@@ -61,6 +61,15 @@ During the build, three key technical hurdles were encountered and successfully 
 2. **Missing Chat Templates:** Base models (like `SmolLM2-135M`) lack pre-configured chat templates. This was resolved by injecting a standard `ChatML` template into the Student's tokenizer during initialization.
 3. **Mixed Precision Support:** Standard `bf16` default behavior crashed the trainer on hardware lacking bfloat16 support. This was fixed by explicitly enforcing `fp16=True` and `bf16=False`.
 
+
+## Executed Input Prompts
+During the physical execution of this case study via `main.py`, the following 5 unstructured prompts were ingested by the Teacher model:
+1. "Explain the theory of relativity in simple terms."
+2. "How do you bake a chocolate cake?"
+3. "Write a python script to reverse a string."
+4. "What is the capital of France and why is it famous?"
+5. "Describe the process of photosynthesis."
+
 ## Conclusion
 The architecture is highly viable. The asymmetric dual-SLM setup proved capable of fully autonomous data generation, quality filtering via entropy mechanics, and self-adaptation via LoRA fine-tuning—all while strictly adhering to rigorous low-VRAM hardware constraints.
 
