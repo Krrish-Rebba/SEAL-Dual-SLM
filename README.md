@@ -26,7 +26,13 @@ Run the pipeline:
 python main.py
 ```
 
+## Checkpoints & Output Artifacts
+All physical LoRA checkpoints, adapter weights, tokenizer configs, and step-by-step training telemetry logs are committed and version-controlled directly in this repository:
+* **Tracked LoRA Checkpoints:** Checkpoint directories (`checkpoint-15/`) across Case Studies (`outputs_iter_CS1` to `CS9`, `CS11`, `CS13`, and `CS14`) contain the full training states (`trainer_state.json`, `adapter_model.safetensors`, `optimizer.pt`, `training_args.bin`).
+* **Case Study 10 Exclusion Notice:** In **Case Study 10** (Full-Parameter Collapse test), the Student model was trained without a LoRA adapter, generating full dense parameter weights (`model.safetensors` ~269 MB) and full optimizer states (`optimizer.pt` ~538 MB) totaling ~773 MB. To strictly comply with GitHub's 100 MB per-file limit, the raw binary checkpoint weights for CS10 (`outputs_iter_CS10/checkpoint-15/`) are excluded from Git tracking via `.gitignore`. Complete training logs, loss explosions, and empirical collapse telemetry for CS10 remain fully documented in [`Findings/CaseStudy10.md`](Findings/CaseStudy10.md) and [`Findings/CaseStudy_Master_Data.xlsx`](Findings/CaseStudy_Master_Data.xlsx).
+
 ## Contributors
 - [Krrish Rebba](https://github.com/Krrish-Rebba)
 - [Pranav H C](https://github.com/Pranavhc)
+
 

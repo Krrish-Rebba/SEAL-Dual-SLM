@@ -1,7 +1,8 @@
-# Ignore Model Weights and Checkpoints
+# Ignore Large Full Fine-Tuning Checkpoints (CS10 exceeds GitHub's 100MB limit)
 student_full_ft_*/
 student_lora_continuous/
-checkpoint-*/
+outputs_iter_CS10/checkpoint-*/
+
 
 # Ignore Python Cache
 __pycache__/
