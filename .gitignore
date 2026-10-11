@@ -25,4 +25,5 @@ build_multisheet_data_workbook.py
 create_docx.py
 extract_cs_data.py
 inject_prompts.py
+compute_raw_entropy_audit.py
 
