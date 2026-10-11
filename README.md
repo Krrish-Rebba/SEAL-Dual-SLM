@@ -25,3 +25,8 @@ Run the pipeline:
 ```bash
 python main.py
 ```
+
+## Contributors
+- [Krrish Rebba](https://github.com/Krrish-Rebba)
+- [Pranav H C](https://github.com/Pranavhc)
+
