@@ -6,11 +6,10 @@ from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from trl import SFTTrainer, SFTConfig
 from datasets import Dataset
 
-# ==============================================================================
+
 # PROJECT SETTINGS & CONSTRAINTS
-# ==============================================================================
-# Note: Replaced SmolLM3 with SmolLM2 as SmolLM3 is not currently available on HF.
-TEACHER_MODEL_ID = "HuggingFaceTB/SmolLM2-360M-Instruct" 
+
+TEACHER_MODEL_ID = "HuggingFaceTB/SmolLM2-360M-Instruct" # a larger model is required: Llama-3.2-1B / Qwen2.5-1.5B
 STUDENT_MODEL_ID = "HuggingFaceTB/SmolLM2-135M" 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -21,25 +20,26 @@ def clear_vram():
         torch.cuda.empty_cache()
     print("VRAM cleared.")
 
-# ==============================================================================
-# PHASE 1: GENERATION (INNER LOOP PREP)
-# ==============================================================================
+
+# PHASE 1: GENERATION
+
 def generate_with_teacher(tasks):
     print("\n--- Phase 1: Loading Teacher Model ---")
     
-    quantization_config = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_compute_dtype=torch.float16,
-        bnb_4bit_quant_type="nf4"
-    )
+    model_load_kwargs = {"device_map": "auto"}
+    if DEVICE == "cuda":
+        model_load_kwargs["quantization_config"] = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.float16,
+            bnb_4bit_quant_type="nf4"
+        )
     
     tokenizer = AutoTokenizer.from_pretrained(TEACHER_MODEL_ID)
     tokenizer.pad_token = tokenizer.eos_token
     
     teacher_model = AutoModelForCausalLM.from_pretrained(
         TEACHER_MODEL_ID,
-        quantization_config=quantization_config,
-        device_map="auto"
+        **model_load_kwargs
     )
     
     generated_data = []
@@ -65,14 +65,15 @@ def generate_with_teacher(tasks):
         generated_sequence = outputs.sequences[0][inputs['input_ids'].shape[1]:]
         generated_text = tokenizer.decode(generated_sequence, skip_special_tokens=True)
         
-        # Calculate token-level entropy
-        # outputs.scores is a tuple of length max_new_tokens, each is (batch_size, vocab_size)
-        entropies = []
-        for score in outputs.scores:
-            probs = torch.softmax(score[0], dim=-1)
-            log_probs = torch.log2(probs + 1e-10) # Use log2 for bits
-            entropy = -torch.sum(probs * log_probs).item()
-            entropies.append(entropy)
+        # Calculate token-level entropy in batches to avoid per-token GPU syncs.
+        if outputs.scores:
+            logits = torch.stack(outputs.scores, dim=0)[:, 0, :]
+            probs = torch.softmax(logits, dim=-1)
+            log_probs = torch.log2(probs + 1e-10)
+            entropy_values = -torch.sum(probs * log_probs, dim=-1)
+            entropies = entropy_values.cpu().tolist()
+        else:
+            entropies = []
             
         generated_data.append({
             "task": task,
@@ -87,10 +88,15 @@ def generate_with_teacher(tasks):
     
     return generated_data
 
-# ==============================================================================
-# PHASE 2: FILTRATION (GOVERNANCE PLANE)
-# ==============================================================================
-def governance_plane(generated_data, percentile_p=0.2, utility_threshold=10.0):
+
+# PHASE 2: FILTRATION
+
+def governance_plane(
+    generated_data,
+    percentile_p=0.2,
+    utility_threshold=10.0,
+    max_utility_threshold=None,
+):
     print("\n--- Phase 2: Running Governance Plane ---")
     surviving_data = []
     
@@ -102,35 +108,26 @@ def governance_plane(generated_data, percentile_p=0.2, utility_threshold=10.0):
         # Rank tokens by entropy (ascending)
         sorted_entropies = np.sort(entropies)
         
-        # Sum the entropy of the top percentile of tokens based on threshold p.
-        # e.g., p=0.2 takes the top 20% highest entropy tokens.
+        # Select the top percentile of token entropies; p=0.2 takes the
+        # 20% most uncertain tokens.
         cutoff_index = int(len(sorted_entropies) * (1 - percentile_p))
         top_entropies = sorted_entropies[cutoff_index:]
         
-        hes_relative = np.sum(top_entropies)
+        hes_relative = np.mean(top_entropies) # should not be np.sum
         
         print(f"Task: {item['task'][:30]:<30} | HES_relative: {hes_relative:.4f}")
         
-        # Discard generated data where HES_relative falls below a predefined utility threshold
-        if hes_relative >= utility_threshold:
-            # Rephrase the prompt semantically for the student
-            def semantic_rephrase(text):
-                t = text.lower()
-                if t.startswith("explain "): return t.replace("explain ", "Describe in simple terms about ", 1).capitalize()
-                if t.startswith("solve "): return t.replace("solve ", "Find the solution for ", 1).capitalize()
-                if t.startswith("what is "): return t.replace("what is ", "Can you define ", 1).capitalize()
-                if t.startswith("write "): return t.replace("write ", "Draft a new ", 1).capitalize()
-                if t.startswith("how to "): return t.replace("how to ", "What are the steps to ", 1).capitalize()
-                if t.startswith("how do you "): return t.replace("how do you ", "What are the steps to ", 1).capitalize()
-                if t.startswith("assume "): return t.replace("assume ", "Suppose that ", 1).capitalize()
-                if t.startswith("when was "): return t.replace("when was ", "In what year did ", 1).capitalize()
-                if t.startswith("describe "): return t.replace("describe ", "Can you outline ", 1).capitalize()
-                return f"Can you give more details about: {text}?"
-                
-            rephrased_task = semantic_rephrase(item['task'])
+        # Apply the upper bound only when one is configured.
+        if (
+            hes_relative >= utility_threshold
+            and (
+                max_utility_threshold is None
+                or hes_relative <= max_utility_threshold
+            )
+        ):
             surviving_data.append({
                 "messages": [
-                    {"role": "user", "content": rephrased_task},
+                    {"role": "user", "content": item['task']},
                     {"role": "assistant", "content": item["generated_text"]}
                 ]
             })
@@ -138,9 +135,9 @@ def governance_plane(generated_data, percentile_p=0.2, utility_threshold=10.0):
     print(f"\nGovernance Plane retained {len(surviving_data)}/{len(generated_data)} samples.")
     return surviving_data
 
-# ==============================================================================
-# PHASE 3: UPDATE (INNER LOOP TRAINING)
-# ==============================================================================
+
+# PHASE 3: UPDATE STUDENT
+
 def train_student(filtered_data):
     if not filtered_data:
         print("\nNo data passed the Governance Plane. Skipping training Phase 3.")
@@ -149,11 +146,13 @@ def train_student(filtered_data):
     print("\n--- Phase 3: Loading Student Model & Training ---")
     dataset = Dataset.from_list(filtered_data)
     
-    quantization_config = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_compute_dtype=torch.float16,
-        bnb_4bit_quant_type="nf4"
-    )
+    model_load_kwargs = {"device_map": "auto"}
+    if DEVICE == "cuda":
+        model_load_kwargs["quantization_config"] = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.float16,
+            bnb_4bit_quant_type="nf4"
+        )
     
     tokenizer = AutoTokenizer.from_pretrained(STUDENT_MODEL_ID)
     tokenizer.pad_token = tokenizer.eos_token
@@ -164,11 +163,11 @@ def train_student(filtered_data):
     
     student_model = AutoModelForCausalLM.from_pretrained(
         STUDENT_MODEL_ID,
-        quantization_config=quantization_config,
-        device_map="auto"
+        **model_load_kwargs
     )
     
-    student_model = prepare_model_for_kbit_training(student_model)
+    if DEVICE == "cuda":
+        student_model = prepare_model_for_kbit_training(student_model)
     
     peft_config = LoraConfig(
         r=8,
@@ -195,7 +194,7 @@ def train_student(filtered_data):
         save_steps=10,
         dataset_text_field="text",
         max_length=512,
-        fp16=True,
+        fp16=DEVICE == "cuda",
         bf16=False
     )
     
@@ -219,9 +218,8 @@ def train_student(filtered_data):
     del tokenizer
     clear_vram()
 
-# ==============================================================================
+
 # PIPELINE EXECUTION
-# ==============================================================================
 if __name__ == "__main__":
     print("INITIALIZING DUAL-SLM PIPELINE...\n")
     clear_vram()
@@ -239,7 +237,12 @@ if __name__ == "__main__":
     
     # Phase 2: Filtration
     # Adjust utility_threshold based on empirical distribution of HES.
-    filtered_outputs = governance_plane(generated_outputs, percentile_p=0.2, utility_threshold=15.0) 
+    filtered_outputs = governance_plane(
+        generated_outputs,
+        percentile_p=0.2,
+        utility_threshold=1, # these values not SUM anymore but MEAN
+        max_utility_threshold=2.40 # entropy upperbound
+    )
     
     # Phase 3: Update
     train_student(filtered_outputs)
