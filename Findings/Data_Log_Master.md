@@ -116,3 +116,10 @@ This document contains a comprehensive record of the synthetic data interactions
 - **Baseline 4 (Passage + Gemini 3.1 Pro Synthetic):** Model trained on passage + rigorous, physically verified deductive implications from Gemini 3.1 Pro (analyzing mode mixing, shot-noise violation, adiabatic invariance, and area-law entropy).
 - **SEAL:** Autonomous pipeline with high-entropy governance and self-adaptation matching the student's inductive bias.
 - **Performance Summary (Single Passage LoRA):** Base: 32.7% | Passage Only: 33.5% | Self-Synthetic: 39.7% | Gemini Synthetic: 46.3% | SEAL: **47.0%**.
+
+---
+
+## Case Study 15: Dual-Bound Governance Calibration & Continual Self-Adaptation
+**Domain:** Contributor Architecture Evaluation & Dual-Iteration Empirical Study (Executed on NVIDIA RTX 3050 Laptop GPU)
+- **Iteration 15A (Passage Knowledge Grounding):** Quantum Vacuum & Bogoliubov mode mixing. Epistemic gating `[2.0 <= HES <= 5.5]` retained 3/5 samples (filtering chaotic theoretical derivations). Student fine-tuned for 15 steps; saved to `outputs_iter_CS15_A`. Quantum QA Perplexity dropped from **1083.01 -> 1004.76 (-78.25 PPL)** with zero catastrophic forgetting on Algebra (32.50 -> 30.72 PPL).
+- **Iteration 15B (Original State with Calibrated Threshold):** General reasoning tasks with normalized mean entropy gating `[1.5 <= HES <= 4.5]`. Retained 5/5 samples (100%). Student fine-tuned for 15 steps; saved to `outputs_iter_CS15_B`. Task perplexity dropped from **106.65 -> 99.48 (-7.17 PPL)**, token accuracy increased from **43.48% -> 44.35%**, and Algebra reasoning preserved (32.50 -> 30.34 PPL).

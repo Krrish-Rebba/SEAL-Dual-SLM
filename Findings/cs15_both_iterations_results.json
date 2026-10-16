@@ -1,0 +1,146 @@
+{
+  "CS15_A": {
+    "telemetry": [
+      {
+        "task": "Explain how non-adiabatic boundary acceleration drives Bogoliubov mode mixing in the Dynamical Casimir Effect.",
+        "hes_relative": 6.1143,
+        "passed": false,
+        "excerpt": "Step 1: Understand the problem The Dynamical Casimir Effect (DCE) is a phen"
+      },
+      {
+        "task": "Derive the relationship between the mirror acceleration trajectory and the two-mode squeezing parameter r.",
+        "hes_relative": 5.5492,
+        "passed": false,
+        "excerpt": "To derive the relationship between the mirror acceleration trajectory and t"
+      },
+      {
+        "task": "Under what conditions do particle creation rates vanish identically in relativistic quantum vacuum fields?",
+        "hes_relative": 4.2768,
+        "passed": true,
+        "excerpt": "Step 1: Understand the problem The problem is to determine under what condi"
+      },
+      {
+        "task": "Explain how entangled Hawking pairs across the horizon establish the Bekenstein-Hawking area-entropy relationship.",
+        "hes_relative": 3.5367,
+        "passed": true,
+        "excerpt": "To explain how entangled Hawking pairs across the horizon establish the Bek"
+      },
+      {
+        "task": "Why do continuous-variable two-mode squeezed states in DCE violate classical shot-noise variance limits?",
+        "hes_relative": 4.5918,
+        "passed": true,
+        "excerpt": "Step 1: Understand the problem The problem is that continuous-variable sque"
+      }
+    ],
+    "loss_history": [
+      2.6126370429992676,
+      3.4536993503570557,
+      3.005323648452759,
+      2.994774580001831,
+      2.57401180267334,
+      3.417548656463623,
+      2.9642863273620605,
+      3.4031193256378174,
+      2.5488193035125732,
+      3.3907039165496826,
+      2.938854694366455,
+      2.5352532863616943,
+      2.5321500301361084,
+      3.375192403793335,
+      2.9264230728149414
+    ],
+    "final_loss": 2.9782,
+    "base_task": {
+      "loss": 6.9875,
+      "tok_acc": 26.25,
+      "ppl": 1083.0106
+    },
+    "lora_task": {
+      "loss": 6.9125,
+      "tok_acc": 26.25,
+      "ppl": 1004.756
+    },
+    "base_alg": {
+      "loss": 3.4813,
+      "tok_acc": 58.75,
+      "ppl": 32.5003
+    },
+    "lora_alg": {
+      "loss": 3.425,
+      "tok_acc": 56.25,
+      "ppl": 30.7226
+    }
+  },
+  "CS15_B": {
+    "telemetry": [
+      {
+        "task": "Explain the theory of relativity in simple terms.",
+        "hes_relative": 3.9292,
+        "passed": true,
+        "excerpt": "The theory of relativity is a fundamental concept in physics that describes"
+      },
+      {
+        "task": "How do you bake a chocolate cake?",
+        "hes_relative": 3.0741,
+        "passed": true,
+        "excerpt": "To bake a chocolate cake, follow these steps:  1. Preheat the oven to 350 d"
+      },
+      {
+        "task": "Write a python script to reverse a string.",
+        "hes_relative": 3.1512,
+        "passed": true,
+        "excerpt": "Here is a step-by-step reasoning process for writing a Python script to rev"
+      },
+      {
+        "task": "What is the capital of France and why is it famous?",
+        "hes_relative": 4.3086,
+        "passed": true,
+        "excerpt": "Step 1: Identify the question The question is: What is the capital of Franc"
+      },
+      {
+        "task": "Describe the process of photosynthesis.",
+        "hes_relative": 3.4185,
+        "passed": true,
+        "excerpt": "Step 1: The process of photosynthesis begins with the absorption of light e"
+      }
+    ],
+    "loss_history": [
+      2.637345314025879,
+      2.385535478591919,
+      2.366668224334717,
+      2.5860416889190674,
+      2.1482067108154297,
+      2.337529420852661,
+      2.1355583667755127,
+      2.3415749073028564,
+      2.569141387939453,
+      2.5579543113708496,
+      2.560126304626465,
+      2.323625326156616,
+      2.299896478652954,
+      2.1076786518096924,
+      2.5466246604919434
+    ],
+    "final_loss": 2.3936,
+    "base_task": {
+      "loss": 4.6696,
+      "tok_acc": 43.48,
+      "ppl": 106.6514
+    },
+    "lora_task": {
+      "loss": 4.6,
+      "tok_acc": 44.35,
+      "ppl": 99.4843
+    },
+    "base_alg": {
+      "loss": 3.4813,
+      "tok_acc": 58.75,
+      "ppl": 32.5003
+    },
+    "lora_alg": {
+      "loss": 3.4125,
+      "tok_acc": 58.75,
+      "ppl": 30.341
+    }
+  }
+}
