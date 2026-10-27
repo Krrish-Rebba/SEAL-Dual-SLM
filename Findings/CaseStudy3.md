@@ -74,9 +74,5 @@ This case study was natively re-executed under strict mathematically corrected e
 
 
 
-
-### Dataset Reference (Teacher Knowledge Base)
-- **Source:** [wmt14](https://huggingface.co/datasets/wmt14)
-- **Content Type:** Machine Translation (French/German)
 > [!NOTE]
 > For a full breakdown of the raw Teacher Prompts, Student Inputs, and Model Outputs used in this test, refer to the [Master Data Log](file:///C:/Users/Krrish%20Rebba/OneDrive/ドキュメント/RM/Findings/Data_Log_Master.md).

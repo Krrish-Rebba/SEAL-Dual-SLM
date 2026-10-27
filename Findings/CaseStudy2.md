@@ -91,9 +91,5 @@ This case study was natively re-executed under strict mathematically corrected e
 
 
 
-
-### Dataset Reference (Teacher Knowledge Base)
-- **Source:** [gsm8k](https://huggingface.co/datasets/gsm8k)
-- **Content Type:** Grade School Math Word Problems
 > [!NOTE]
 > For a full breakdown of the raw Teacher Prompts, Student Inputs, and Model Outputs used in this test, refer to the [Master Data Log](file:///C:/Users/Krrish%20Rebba/OneDrive/ドキュメント/RM/Findings/Data_Log_Master.md).

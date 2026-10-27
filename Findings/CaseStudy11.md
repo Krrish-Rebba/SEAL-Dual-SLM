@@ -53,9 +53,5 @@ Because the adapter only has a rank of 8, it has a strict limit on orthogonal fo
 
 
 
-
-### Dataset Reference (Teacher Knowledge Base)
-- **Source:** [gsm8k](https://huggingface.co/datasets/gsm8k) & [squad_v2](https://huggingface.co/datasets/squad_v2)
-- **Content Type:** Heavily duplicated subset for memory saturation testing
 > [!NOTE]
 > For a full breakdown of the raw Teacher Prompts, Student Inputs, and Model Outputs used in this test, refer to the [Master Data Log](file:///C:/Users/Krrish%20Rebba/OneDrive/ドキュメント/RM/Findings/Data_Log_Master.md).

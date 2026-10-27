@@ -42,10 +42,6 @@ This finalizes the Asymmetric Dual-SLM architecture. Not only are the base param
 
 
 
-
-### Dataset Reference (Teacher Knowledge Base)
-- **Source:** [gsm8k](https://huggingface.co/datasets/gsm8k) (Semantically Decoupled)
-- **Content Type:** Grade School Math (Prompts programmatically rephrased)
 > [!NOTE]
 > For a full breakdown of the raw Teacher Prompts, Student Inputs, and Model Outputs used in this test, refer to the [Master Data Log](file:///C:/Users/Krrish%20Rebba/OneDrive/ドキュメント/RM/Findings/Data_Log_Master.md).
 

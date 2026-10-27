@@ -63,9 +63,5 @@ This case study was natively re-executed under strict mathematically corrected e
 
 
 
-
-### Dataset Reference (Teacher Knowledge Base)
-- **Source:** [allenai/c4](https://huggingface.co/datasets/allenai/c4)
-- **Content Type:** Colossal Clean Crawled Corpus (Multi-Domain Web Text)
 > [!NOTE]
 > For a full breakdown of the raw Teacher Prompts, Student Inputs, and Model Outputs used in this test, refer to the [Master Data Log](file:///C:/Users/Krrish%20Rebba/OneDrive/ドキュメント/RM/Findings/Data_Log_Master.md).

@@ -33,9 +33,5 @@ Our Asymmetric Dual-SLM with HES Governance is a biologically viable framework f
 
 
 
-
-### Dataset Reference (Teacher Knowledge Base)
-- **Source:** Aggregate Mega-Batch (c4, gsm8k, squad_v2, cosmopedia)
-- **Content Type:** Continuous lifelong learning stream
 > [!NOTE]
 > For a full breakdown of the raw Teacher Prompts, Student Inputs, and Model Outputs used in this test, refer to the [Master Data Log](file:///C:/Users/Krrish%20Rebba/OneDrive/ドキュメント/RM/Findings/Data_Log_Master.md).

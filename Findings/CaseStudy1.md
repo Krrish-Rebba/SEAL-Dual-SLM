@@ -101,9 +101,5 @@ Following a strict mathematical audit, the pipeline was rewritten to correct eva
 
 
 
-
-### Dataset Reference (Teacher Knowledge Base)
-- **Source:** [OpenAssistant/oasst1](https://huggingface.co/datasets/OpenAssistant/oasst1)
-- **Content Type:** Unstructured Conversational Data
 > [!NOTE]
 > For a full breakdown of the raw Teacher Prompts, Student Inputs, and Model Outputs used in this test, refer to the [Master Data Log](file:///C:/Users/Krrish%20Rebba/OneDrive/ドキュメント/RM/Findings/Data_Log_Master.md).
