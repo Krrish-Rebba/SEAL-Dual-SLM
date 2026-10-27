@@ -27,3 +27,8 @@ extract_cs_data.py
 inject_prompts.py
 compute_raw_entropy_audit.py
 
+# Assignment files
+assignments/
+
+
+RM_RESEARCH_PAPER.pdf
